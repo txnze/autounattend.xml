@@ -1,4 +1,4 @@
-# Windows 11 install (autounattend.xml)
+# autounattend.xml
  
 Unattended Windows 11 install for preparing customer PCs. Finnish language and region, no user account during prep, automatic updates, and a handover script that resets the PC to the normal welcome screen (OOBE) for the customer.
  
