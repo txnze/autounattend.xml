@@ -1,4 +1,4 @@
-# autounattend.xml
+# Windows 11 shop install (autounattend.xml)
  
 Unattended Windows 11 install for preparing customer PCs. Finnish language and region, no user account during prep, automatic updates, and a handover script that resets the PC to the normal welcome screen (OOBE) for the customer.
  
@@ -9,6 +9,20 @@ Originally based on the [schneegans.de unattend generator](https://schneegans.de
 - **USB stick:** put `autounattend.xml` in the root of the Windows install stick.
 - **VM:** attach `unattend.iso` as a second CD drive next to the Windows ISO.
 - **Optional:** storage or Wi-Fi drivers (Intel VMD/RST, RAID, etc.) go in a `$WinPEDriver$` folder in the root of the stick.
+```
+USB stick (e.g. E:)
+├── autounattend.xml      <- here, next to these folders
+├── $WinPEDriver$\        <- optional: extra storage/Wi-Fi drivers
+├── boot\
+├── efi\
+├── sources\
+├── bootmgr
+├── bootmgr.efi
+└── setup.exe
+```
+ 
+The file name must be exactly `autounattend.xml`. Rename it if your browser saved it as `autounattend (1).xml`.
+ 
 ## Flow
  
 1. **Setup (WinPE)**
@@ -46,9 +60,4 @@ Startup items during prep: `OEMUpdate.cmd` (until updates are done) and `OEMHide
 - No VBScript. Setup uses only cmd, DISM and diskpart.
 - Windows Update gives no percentage progress, so elapsed timers are shown instead.
 - The disk and edition lists parse DISM and diskpart output. A future ISO may need a tweak if that output changes.
-## Status (9.10.2026)
  
-- Tested in a VM: Home and Pro installs, audit mode, updates, Finish Setup to OOBE.
-- Tested on real hardware: install, edition and disk screens, update loop.
-- To verify on real hardware: final update check, hidden Sysprep window, Finish Setup, Wi-Fi-only PC, two-disk PC.
-- Final version: own namespace (`urn:oem:install`), generator leftovers removed, OEM file names. No OEM support info.
